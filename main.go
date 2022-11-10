@@ -6,12 +6,12 @@ import (
 
 func main() {
 	fmt.Println("Which type of project you would like to create?")
-	fmt.Println("[1] Go")
-	fmt.Println("[2] C#")
-	fmt.Println("[3] C")
-	var inp string
-	fmt.Scanln(&inp)
-	projectType(inp)
+	fmt.Println("[ 1 ] Go")
+	fmt.Println("[ 2 ] C#")
+	fmt.Println("[ 3 ] C")
+	var sUserInput string
+	fmt.Scanln(&sUserInput)
+	projectType(sUserInput)
 }
 
 /*func validateInput() string {
@@ -34,14 +34,17 @@ func main() {
 func projectType(ProgrammingLang string) {
 
 	fmt.Print("\033[H\033[2J") // -> Clean Console
-	var inp string
+	var sInput string
+	var sName string
 
 	switch ProgrammingLang {
 	case "1":
 		fmt.Println("Go Options")
 		fmt.Println("[ 1 ]  Console Application")
-		fmt.Scanln(&inp)
-		projectGO(inp)
+		fmt.Scanln(&sInput)
+		fmt.Println("Please enter the Name of the Project (ex. net.hakuryuu/hello)")
+		fmt.Scanln(&sName)
+		projectGO(sInput, sName)
 		break
 	case "2":
 		fmt.Println("C# Options")
@@ -49,61 +52,75 @@ func projectType(ProgrammingLang string) {
 		fmt.Println("[ 2 ]  ASP.NET Core")
 		fmt.Println("[ 3 ]  ASP.NET Core Blazor Server")
 		fmt.Println("[ 4 ]  ASP.NET Core Blazor WebAssembly")
-		fmt.Scanln(&inp)
-		projectCS(inp)
+		fmt.Println("[ 5 ]  ASP.NET Core MVC")
+		fmt.Scanln(&sInput)
+		fmt.Println("Please enter the Name of the Project ")
+		fmt.Scanln(&sName)
+		projectCS(sInput, sName)
 		break
 	case "3":
 		fmt.Println("C Options")
 		fmt.Println("[ 1 ]  Console Application")
-		fmt.Scanln(&inp)
-		projectC(inp)
+		fmt.Scanln(&sInput)
+		fmt.Println("Please enter the Name of the Project ")
+		fmt.Scanln(&sName)
+		projectC(sInput, sName)
 		break
 	default:
-		//Log
+		log(false, "Invalid selection", INFO)
 		break
 
 	}
 }
 
 // C# Projects
-func projectCS(ProjectType string) {
+func projectCS(sProjectType string, sProjectName string) {
 
-	switch ProjectType {
+	switch sProjectType {
 	case "1":
-		CreateCSConsole()
+		createCsConsole(sProjectName)
 		break
 	case "2":
+		createCsAspNetCore(sProjectName)
 		break
 	case "3":
+		createCsAspNetCoreBlazorServer(sProjectName)
 		break
 	case "4":
+		createCsAspNetCoreBlazorWASM(sProjectName)
+		break
+	case "5":
+		createCsAspNetCoreMvc(sProjectName)
 		break
 	default:
+		log(false, "Invalid selection.", INFO)
 		break
 
 	}
 }
 
 // Go Projects
-func projectGO(ProjectType string) {
+func projectGO(sProjectType string, sProjectName string) {
 
-	switch ProjectType {
+	switch sProjectType {
 	case "1":
-		CreateGoConsole()
+		createGoConsole(sProjectName)
 		break
 	default:
+		log(false, "Invalid selection.", INFO)
 		break
 
 	}
 }
 
 // C Projects
-func projectC(ProjectType string) {
-	switch ProjectType {
+func projectC(sProjectType string, sProjectName string) {
+	switch sProjectType {
 	case "1":
-		CreateCConsole()
+		createCConsole(sProjectName)
 		break
 	default:
+		log(false, "Invalid selection.", INFO)
 		break
 
 	}

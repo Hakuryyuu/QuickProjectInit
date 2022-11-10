@@ -1,48 +1,52 @@
 package main
 
 import (
-	"fmt"
 	"os/exec"
 )
 
-func CreateCSConsole() {
-	executeShell("dotnet new console \"testapp\"")
+func createCsConsole(sName string) {
+	executeShell("dotnet new console -o " + sName)
 }
 
-func CreateCSASPNETCore() {
+func createCsAspNetCore(sName string) {
+	executeShell("dotnet new web -o " + sName)
+}
+
+func createCsAspNetCoreBlazorServer(sName string) {
+	executeShell("dotnet new blazorserver -o " + sName)
+}
+
+func createCsAspNetCoreBlazorWASM(sName string) {
+	executeShell("dotnet new blazorwasm -o " + sName)
+}
+
+func createCsAspNetCoreMvc(sName string) {
+	executeShell("dotnet new mvc -o " + sName)
+}
+
+func createGoConsole(sName string) {
+	sStandardMain := "package main\n\n	 import \"fmt\"\n	  func main() {\n		 fmt.Println(\"Hello, Alcina.\")\n	 }"
+	executeShell("mkdir goproject && cd goproject && type " + sStandardMain + " > main.go && go mod init " + sName)
+}
+
+func createCConsole(sName string) {
 
 }
 
-func CreateCSASPNETCoreBlazorServer() {
-
-}
-
-func CreateCSASPNETCoreBlazorWASM() {
-
-}
-
-func CreateGoConsole() {
-
-}
-
-func CreateCConsole() {
-
-}
-
-func executeShell(command string) {
+func executeShell(sCommand string) {
 	app := "cmd"
 
 	arg0 := "/C"
-	arg1 := command
+	arg1 := sCommand
 
 	cmd := exec.Command(app, arg0, arg1)
 	stdout, err := cmd.Output()
 
 	if err != nil {
-		fmt.Println(err.Error())
+		log(true, err.Error(), ERROR)
 		return
 	}
 
 	// Print the output
-	fmt.Println(string(stdout))
+	log(false, string(stdout)+"Done.", INFO)
 }
