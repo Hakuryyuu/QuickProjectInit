@@ -1,17 +1,22 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 )
 
 func main() {
+
+	Path := flag.String("Path", "default", "Path where project shall be created")
+	flag.Parse()
+	fmt.Println(*Path)
 	fmt.Println("Which type of project you would like to create?")
 	fmt.Println("[ 1 ] Go")
 	fmt.Println("[ 2 ] C#")
 	fmt.Println("[ 3 ] C")
 	var sUserInput string
 	fmt.Scanln(&sUserInput)
-	projectType(sUserInput)
+	projectType(sUserInput) // Evaluate Project Type
 }
 
 /*func validateInput() string {
@@ -33,7 +38,7 @@ func main() {
 // Determite Programming Language
 func projectType(ProgrammingLang string) {
 
-	fmt.Print("\033[H\033[2J") // -> Clean Console
+	fmt.Print(CONSOLE_CLEAR) // -> Clean Console
 	var sInput string
 	var sName string
 

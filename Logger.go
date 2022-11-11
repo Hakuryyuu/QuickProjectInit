@@ -6,7 +6,6 @@ import (
 )
 
 // Console Log Colors
-const RESET = "\033[0m"
 const COLOR_RED = "\033[31m"
 const COLOR_GREEN = "\033[32m"
 const COLOR_YELLOW = "\033[33m"
@@ -15,6 +14,9 @@ const COLOR_PURPLE = "\033[35m"
 const COLOR_CYAN = "\033[36m"
 const COLOR_GRAY = "\033[37m"
 const COLOR_WHITE = "\033[97m"
+
+const CONSOLE_RESET = "\033[0m"
+const CONSOLE_CLEAR = "\033[H\033[2J"
 
 type level int
 
@@ -31,7 +33,7 @@ const DEBUG_MODE = false // Enable/Disable Debug Logging
 func log(bSaveToFile bool, sInfo string, lvLevel level) {
 
 	/*if runtime.GOOS == "windows" { // Color Codes do not work for standard Windows CMD so we remove it so no weird strings will be displayed.
-		RESET = ""
+		CONSOLE_RESET = ""
 		COLOR_RED = ""
 		COLOR_GREEN = ""
 		COLOR_YELLOW = ""
@@ -57,21 +59,21 @@ func log(bSaveToFile bool, sInfo string, lvLevel level) {
 }
 
 func logInfo(bSaveToFile bool, sInfo string, sTime string) {
-	fmt.Println(sTime + " | " + COLOR_GREEN + "INFO" + RESET + " | " + sInfo)
+	fmt.Println(sTime + " | " + COLOR_GREEN + "INFO" + CONSOLE_RESET + " | " + sInfo)
 	if bSaveToFile {
 		appendToLogFile(sTime + " | INFO | " + sInfo)
 	}
 }
 
 func logError(bSaveToFile bool, sInfo string, sTime string) {
-	fmt.Println(sTime + " | " + COLOR_RED + "ERROR" + RESET + " | " + sInfo)
+	fmt.Println(sTime + " | " + COLOR_RED + "ERROR" + CONSOLE_RESET + " | " + sInfo)
 	if bSaveToFile {
 		appendToLogFile(sTime + " | ERROR | " + sInfo)
 	}
 }
 
 func logWarning(bSaveToFile bool, sInfo string, sTime string) {
-	fmt.Println(sTime + " | " + COLOR_YELLOW + "WARNING" + RESET + " | " + sInfo)
+	fmt.Println(sTime + " | " + COLOR_YELLOW + "WARNING" + CONSOLE_RESET + " | " + sInfo)
 	if bSaveToFile {
 		appendToLogFile(sTime + " | WARNING | " + sInfo)
 	}
@@ -79,7 +81,7 @@ func logWarning(bSaveToFile bool, sInfo string, sTime string) {
 
 func logDebug(bSaveToFile bool, sInfo string, sTime string) {
 	if DEBUG_MODE {
-		fmt.Println(sTime + " | " + COLOR_CYAN + "DEBUG" + RESET + " | " + sInfo)
+		fmt.Println(sTime + " | " + COLOR_CYAN + "DEBUG" + CONSOLE_RESET + " | " + sInfo)
 		if bSaveToFile {
 			appendToLogFile(sTime + " | DEBUG | " + sInfo)
 		}
